@@ -11,8 +11,14 @@ def send_post_notification_email(user_id):
         sender = User.objects.get(id=user_id)
         followed_users = [follow.follower for follow in sender.followers.all()]
         for user in followed_users:
+            post_url = f"https://konnectify.info/{sender.username}/post/{post.id}"
             subject = "New Post Updated by your Friend"
-            message = f"Hello {user.first_name} {user.last_name},\n\nA new post has been created by {sender.first_name} {sender.last_name}.\nCheck it out and be the first person to like it."
+            message = (
+                f"Hello {user.first_name} {user.last_name},\n\n"
+                f"A new post has been created by {sender.first_name} {sender.last_name}.\n"
+                f"Check it out and be the first person to like it.\n\n"
+                f"View the post here: {post_url}"
+            )
             recipient_list = [user.email]
             sender_email = settings.EMAIL_HOST_USER
             send_mail(
@@ -34,8 +40,9 @@ def send_comment_notification_email(user_id, post_id, comment):
         user = User.objects.get(id=user_id)
         post = Post.objects.get(id=post_id)
         user_associated_with_post = post.user
+        post_url = f"https://konnectify.info/{user_associated_with_post.username}/post/{post.id}"
         subject = "Commented on your post"
-        message = f"Hello {user_associated_with_post.first_name} {user_associated_with_post.last_name},\n\ncomment- {comment} \nby {user.first_name} {user.last_name}.\nCheck it out."
+        message = f"Hello {user_associated_with_post.first_name} {user_associated_with_post.last_name},\n\ncomment- {comment} \nby {user.first_name} {user.last_name}.\nCheck it out.\nView the post here: {post_url}"
         recipient_list = [user_associated_with_post.email]
         sender_email = settings.EMAIL_HOST_USER
         send_mail(
@@ -55,8 +62,9 @@ def send_like_notification_email(user_id, post_id):
         user = User.objects.get(id=user_id)
         post = Post.objects.get(id=post_id)
         user_associated_with_post = post.user
+        post_url = f"https://konnectify.info/{user_associated_with_post.username}/post/{post.id}"
         subject = "Liked on your post"
-        message = f"Hello {user_associated_with_post.first_name} {user_associated_with_post.last_name},\n\n{user.first_name} {user.last_name} liked your post.\nLogin to see total likes."
+        message = f"Hello {user_associated_with_post.first_name} {user_associated_with_post.last_name},\n\n{user.first_name} {user.last_name} liked your post.\nLogin to see total likes.\nView the post here: {post_url}"
         recipient_list = [user_associated_with_post.email]
         sender_email = settings.EMAIL_HOST_USER
         send_mail(

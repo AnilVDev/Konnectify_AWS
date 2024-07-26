@@ -18,6 +18,7 @@ import ssl
 from django.core.mail.backends.smtp import EmailBackend
 from django.core.mail import get_connection
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,7 +35,7 @@ SECRET_KEY = "django-insecure-=964$v9&u6s)_g)q=@q0!0&avy2q%c#6$t+myf@(aw3)n79#ne
 DEBUG = True
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -209,8 +210,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-MEDIA_URL = "/media/"
-
+#MEDIA_URL = "/media/"
+MEDIA_URL = 'https://51.21.144.92/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -219,8 +220,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_BACKEND = "authentication.email_backend.CustomEmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+#EMAIL_BACKEND = "authentication.email_backend.CustomEmailBackend"
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST = "smtp.gmail.com"
@@ -229,8 +230,15 @@ EMAIL_HOST_PASSWORD = "gpnc jijs vxas gajr"
 DEFAULT_FROM_EMAIL = "ksheeraq59d@gmail.com"
 EMAIL_PORT = 587
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:8000"]
+CORS_ALLOWED_ORIGINS = ["http://51.21.144.92","https://51.21.144.92","https://konnectify.info","https://www.konnectify.info","https://social-media-frontend-ecru.vercel.app"]
+CSRF_TRUSTED_ORIGINS = [
+    'https://51.21.144.92',
+    'https://konnectify.info',
+    'https://www.konnectify.info',
+    "https://social-media-frontend-ecru.vercel.app"
+]
 CORS_ALLOW_ALL_ORIGINS = True
+
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
 
